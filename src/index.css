@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+:root {
+  font-family: "Inter", sans-serif;
+  color: #f8fafc;
+  background: #050816;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  background: #050816;
+  color: #f8fafc;
+
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: white;
+}
+
+/* =========================================================
+   GLOBAL LAYOUT
+   ========================================================= */
+
+.section-container {
+  width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+.font-display {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    110deg,
+    #c4b5fd 0%,
+    #a78bfa 40%,
+    #67e8f9 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* =========================================================
+   SECTION LABEL
+   ========================================================= */
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  color: #a78bfa;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.section-label::before {
+  content: "";
+
+  width: 24px;
+  height: 1px;
+
+  background: #8b5cf6;
+}
+
+/* =========================================================
+   BACKGROUND GRID
+   ========================================================= */
+
+.grid-background {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 48px 48px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    rgba(0, 0, 0, 0.8) 45%,
+    transparent 100%
+  );
+}
+
+.grid-background::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle 450px at var(--mouse-x, 50%) var(--mouse-y, 35%),
+    rgba(124, 58, 237, 0.1),
+    transparent 70%
+  );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   GLASS
+   ========================================================= */
+
+.glass {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+
+  background: rgba(11, 16, 32, 0.72);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* =========================================================
+   HERO GLOW
+   ========================================================= */
+
+.hero-glow {
+  position: absolute;
+
+  width: 360px;
+  height: 360px;
+
+  border-radius: 999px;
+
+  opacity: 0.1;
+
+  filter: blur(100px);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.portfolio-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(124, 58, 237, 0.07),
+      transparent 35%
+    ),
+    rgba(9, 13, 27, 0.75);
+
+  transition:
+    border-color 250ms ease,
+    transform 250ms ease,
+    background 250ms ease;
+}
+
+.portfolio-card:hover {
+  border-color: rgba(167, 139, 250, 0.25);
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.magnetic-button {
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+/* =========================================================
+   SCROLL PROGRESS
+   ========================================================= */
+
+.scroll-progress {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  transform-origin: left;
+
+  background: linear-gradient(
+    90deg,
+    #8b5cf6,
+    #22d3ee
+  );
+
+  z-index: 9999;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .section-container {
+    width: min(100% - 32px, 680px);
+  }
+
+  .grid-background {
+    background-size: 32px 32px;
+  }
+
+  .hero-glow {
+    width: 240px;
+    height: 240px;
+  }
+}
