@@ -1,4 +1,8 @@
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import {
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+} from "react-icons/fi";
 
 function Footer() {
   return (
@@ -11,34 +15,39 @@ function Footer() {
 
           <span className="mx-2">·</span>
 
-          Built with React.
+          © 2026
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <a
-            href="https://github.com/"
+            href="https://github.com/Shradharai"
             target="_blank"
-            rel="noreferrer"
-            className="transition hover:text-white"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="text-slate-600 transition hover:text-white"
           >
-            <FiGithub />
+            <FiGithub size={16} />
           </a>
 
           <a
-            href="https://www.linkedin.com/"
+            href="https://www.linkedin.com/in/shradha-rai-18460a213/"
             target="_blank"
-            rel="noreferrer"
-            className="transition hover:text-white"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="text-slate-600 transition hover:text-white"
           >
-            <FiLinkedin />
+            <FiLinkedin size={16} />
           </a>
 
           <a
-            href="mailto:your.email@example.com"
-            className="transition hover:text-white"
-          >
-            <FiMail />
-          </a>
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=shradharai4u@gmail.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Email"
+  className="text-slate-600 transition hover:text-white"
+>
+  <FiMail size={16} />
+</a>
         </div>
       </div>
     </footer>

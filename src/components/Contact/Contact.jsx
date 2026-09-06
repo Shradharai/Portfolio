@@ -1,5 +1,14 @@
 import { motion } from "framer-motion";
-import { FiArrowUpRight, FiMail } from "react-icons/fi";
+import {
+  FiArrowUpRight,
+  FiMail,
+  FiLinkedin,
+} from "react-icons/fi";
+
+const EMAIL = "mailto:shradharai4u@gmail.com";
+
+const LINKEDIN =
+  "https://www.linkedin.com/in/shradha-rai-18460a213/";
 
 function Contact() {
   return (
@@ -14,13 +23,22 @@ function Contact() {
             opacity: 1,
             y: 0,
           }}
-          viewport={{ once: true }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="relative overflow-hidden rounded-[32px] border border-white/[0.07] bg-white/[0.025] px-7 py-14 text-center sm:px-12 sm:py-20"
         >
-          <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-violet-500/15 blur-3xl" />
+          <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-violet-500/15 blur-3xl" />
 
           <div className="relative">
-            <span className="section-label">Get in touch</span>
+            <span className="section-label">
+              Get in touch
+            </span>
 
             <h2 className="font-display mx-auto mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-7xl">
               Let's build something
@@ -28,18 +46,39 @@ function Contact() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-slate-500">
-              Open to software engineering, data, AI and interesting product
-              problems.
+              Open to software engineering, data, AI and interesting
+              product problems.
             </p>
 
-            <a
-              href="mailto:your.email@example.com"
-              className="group mx-auto mt-9 inline-flex items-center gap-3 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-violet-100"
-            >
-              <FiMail />
-              Say hello
-              <FiArrowUpRight className="transition group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </a>
+            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+<a
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=shradharai4u@gmail.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="group inline-flex items-center gap-3 rounded-xl bg-white px-6 py-3.5 !text-slate-950 text-sm font-semibold transition hover:bg-violet-100"
+>
+  <FiMail size={16} />
+  Email me
+  <FiArrowUpRight
+    size={16}
+    className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
+  />
+</a>
+
+              <a
+                href={LINKEDIN}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3.5 text-sm font-semibold text-white transition hover:border-violet-400/20 hover:bg-white/[0.08]"
+              >
+                <FiLinkedin size={16} />
+                Connect on LinkedIn
+                <FiArrowUpRight
+                  size={16}
+                  className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>

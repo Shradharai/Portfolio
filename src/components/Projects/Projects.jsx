@@ -3,6 +3,8 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { PROJECTS } from "../../constants";
 import { fadeUp, stagger, viewport } from "../../animations";
 
+const GITHUB_URL = "https://github.com/Shradharai";
+
 function Projects() {
   return (
     <section
@@ -32,14 +34,17 @@ function Projects() {
             variants={fadeUp}
             className="max-w-sm text-sm leading-6 text-slate-500"
           >
-            A selection of engineering, analytics and machine learning work.
+            A selection of engineering, analytics and research-driven work.
           </motion.p>
         </div>
 
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {PROJECTS.map((project) => (
-            <motion.article
+            <motion.a
               key={project.number}
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noreferrer"
               variants={fadeUp}
               whileHover={{ y: -5 }}
               transition={{ duration: 0.25 }}
@@ -50,6 +55,7 @@ function Projects() {
 
               <div className="relative z-10 flex h-full flex-col">
 
+                {/* Project number + GitHub indicator */}
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-slate-600">
                     {project.number}
@@ -84,9 +90,13 @@ function Projects() {
                       </span>
                     ))}
                   </div>
+
+                  <p className="mt-6 text-xs text-slate-600 transition-colors group-hover:text-slate-400">
+                    View on GitHub
+                  </p>
                 </div>
               </div>
-            </motion.article>
+            </motion.a>
           ))}
         </div>
       </motion.div>

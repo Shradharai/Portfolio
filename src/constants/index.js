@@ -1,10 +1,12 @@
 export const NAV_ITEMS = [
   { label: "About", href: "#about" },
+  { label: "Journey", href: "#journey" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Research", href: "#research" },
   { label: "Skills", href: "#skills" },
 ];
+
 
 export const SOCIALS = {
   github: "https://github.com/",
@@ -55,20 +57,20 @@ export const SKILLS = [
 ];
 
 export const PROJECTS = [
-  {
-    number: "01",
-    category: "RESEARCH / DATA SCIENCE",
-    title: "Spatio-Temporal Risk Intelligence",
-    description:
-      "A district-level road safety analytics platform using accident, population and spatial data from Tamil Nadu, with risk modelling, XGBoost prediction, SHAP explainability and a Streamlit dashboard.",
-    tags: [
-      "Python",
-      "XGBoost",
-      "SHAP",
-      "GeoPandas",
-      "Streamlit",
-    ],
-  },
+{
+  number: "01",
+  category: "RESEARCH / AI / DATA",
+  title: "Urban AI",
+  description:
+    "A district-level road safety analytics system using spatial and population data from Tamil Nadu, with risk modelling, XGBoost prediction, SHAP explainability and a Streamlit dashboard.",
+  tags: [
+    "Python",
+    "XGBoost",
+    "SHAP",
+    "GeoPandas",
+    "Streamlit",
+  ],
+},
   {
     number: "02",
     category: "FULL STACK",

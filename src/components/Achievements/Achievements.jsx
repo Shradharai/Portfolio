@@ -1,30 +1,35 @@
 import { motion } from "framer-motion";
-import { FiAward, FiDatabase, FiCode, FiTrendingUp } from "react-icons/fi";
+import {
+  FiAward,
+  FiCode,
+  FiUsers,
+  FiBookOpen,
+} from "react-icons/fi";
 
 const achievements = [
   {
     icon: FiAward,
-    value: "9.12",
-    title: "Academic foundation",
-    text: "B.Tech Computer Science with specialization in Big Data Analytics.",
+    value: "6+",
+    title: "Hackathons & challenges",
+    text: "Participated in competitions including Smart India Hackathon, Flipkart GRID, Myntra HackerRamp and Google Solution Challenge.",
   },
   {
-    icon: FiDatabase,
-    value: "AI",
-    title: "Applied focus",
-    text: "Experience across machine learning, analytics and data-oriented systems.",
+    icon: FiBookOpen,
+    value: "1",
+    title: "Research publication",
+    text: "Research paper accepted at ASSIC 2026, with publication pending.",
+  },
+  {
+    icon: FiUsers,
+    value: "4",
+    title: "Research team",
+    text: "Worked as part of a four-member Samsung PRISM research team on microservices observability.",
   },
   {
     icon: FiCode,
-    value: "CS",
-    title: "Engineering mindset",
-    text: "Combining software engineering fundamentals with analytical thinking.",
-  },
-  {
-    icon: FiTrendingUp,
-    value: "∞",
-    title: "Learning curve",
-    text: "Continuously expanding across engineering, AI and data.",
+    value: "9.1",
+    title: "Academic foundation",
+    text: "B.Tech in Computer Science with a specialization in Big Data Analytics.",
   },
 ];
 
@@ -44,7 +49,7 @@ function Achievements() {
             const Icon = item.icon;
 
             return (
-              <motion.div
+              <motion.article
                 key={item.title}
                 initial={{
                   opacity: 0,
@@ -54,24 +59,36 @@ function Achievements() {
                   opacity: 1,
                   y: 0,
                 }}
-                viewport={{ once: true }}
+                whileHover={{
+                  y: -5,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.2,
+                }}
                 transition={{
                   delay: index * 0.08,
+                  duration: 0.5,
                 }}
-                className="card-hover rounded-3xl border border-white/[0.07] bg-white/[0.025] p-6"
+                className="portfolio-card group rounded-3xl p-6"
               >
-                <Icon className="text-violet-300" size={20} />
+                <Icon
+                  className="text-violet-300 transition-transform duration-300 group-hover:scale-110"
+                  size={20}
+                />
 
                 <p className="font-display mt-8 text-4xl font-semibold">
                   {item.value}
                 </p>
 
-                <h3 className="mt-3 font-semibold">{item.title}</h3>
+                <h3 className="mt-3 font-semibold">
+                  {item.title}
+                </h3>
 
-                <p className="mt-2 text-sm leading-6 text-slate-500">
+                <p className="mt-2 text-sm leading-6 text-slate-500 transition-colors duration-300 group-hover:text-slate-400">
                   {item.text}
                 </p>
-              </motion.div>
+              </motion.article>
             );
           })}
         </div>

@@ -2,6 +2,7 @@ import {
   motion,
   useMotionValue,
   useSpring,
+  useTransform,
 } from "framer-motion";
 
 import {
@@ -14,6 +15,10 @@ import {
 import { SOCIALS } from "../../constants";
 
 function Hero() {
+  /* --------------------------------
+     Main mouse position
+  --------------------------------- */
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -27,7 +32,51 @@ function Hero() {
     damping: 25,
   });
 
+  /* --------------------------------
+     Image depth / tilt
+  --------------------------------- */
+
+  const rotateX = useTransform(springY, [-0.5, 0.5], [2.5, -2.5]);
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-2.5, 2.5]);
+
+  /* --------------------------------
+     Layered parallax
+  --------------------------------- */
+
+  const cardX = useTransform(springX, [-0.5, 0.5], [-8, 8]);
+  const cardY = useTransform(springY, [-0.5, 0.5], [-8, 8]);
+
+  const focusX = useTransform(springX, [-0.5, 0.5], [-14, 14]);
+  const focusY = useTransform(springY, [-0.5, 0.5], [-14, 14]);
+
+  const cgpaX = useTransform(springX, [-0.5, 0.5], [-18, 18]);
+  const cgpaY = useTransform(springY, [-0.5, 0.5], [-18, 18]);
+
+  /* --------------------------------
+     Magnetic CTA
+  --------------------------------- */
+
+  const buttonX = useMotionValue(0);
+  const buttonY = useMotionValue(0);
+
+  const springButtonX = useSpring(buttonX, {
+    stiffness: 180,
+    damping: 18,
+  });
+
+  const springButtonY = useSpring(buttonY, {
+    stiffness: 180,
+    damping: 18,
+  });
+
+  /* --------------------------------
+     Mouse movement
+  --------------------------------- */
+
   const handleMouseMove = (event) => {
+    // Don't run cursor effects on mobile/tablet widths.
+    if (window.innerWidth < 768) return;
+
     const x = event.clientX / window.innerWidth - 0.5;
     const y = event.clientY / window.innerHeight - 0.5;
 
@@ -45,6 +94,34 @@ function Hero() {
     );
   };
 
+  /* --------------------------------
+     CTA movement
+  --------------------------------- */
+
+  const handleButtonMove = (event) => {
+    if (window.innerWidth < 768) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    const x =
+      event.clientX - (rect.left + rect.width / 2);
+
+    const y =
+      event.clientY - (rect.top + rect.height / 2);
+
+    buttonX.set(x * 0.12);
+    buttonY.set(y * 0.12);
+  };
+
+  const resetButton = () => {
+    buttonX.set(0);
+    buttonY.set(0);
+  };
+
+  /* --------------------------------
+     Scroll
+  --------------------------------- */
+
   const scrollToAbout = () => {
     document.querySelector("#about")?.scrollIntoView({
       behavior: "smooth",
@@ -57,9 +134,13 @@ function Hero() {
       onMouseMove={handleMouseMove}
       className="relative min-h-screen overflow-hidden pt-28"
     >
+      {/* Background grid */}
       <div className="grid-background absolute inset-0" />
 
-      {/* Ambient glow */}
+      {/* --------------------------------
+          Ambient glow
+      --------------------------------- */}
+
       <motion.div
         style={{
           x: springX,
@@ -76,29 +157,52 @@ function Hero() {
         className="hero-glow right-[8%] top-[45%] bg-cyan-500"
       />
 
+      {/* --------------------------------
+          Main content
+      --------------------------------- */}
+
       <div className="section-container relative z-10 flex min-h-[calc(100vh-112px)] items-center py-20">
         <div className="grid w-full items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
 
-          {/* LEFT */}
+          {/* =================================
+              LEFT
+          ================================= */}
+
           <div>
+            {/* Label */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{
+                opacity: 0,
+                y: 15,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.6,
+              }}
               className="section-label"
             >
               Software • AI • Data
             </motion.div>
 
+            {/* Heading */}
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
               transition={{
                 duration: 0.9,
                 delay: 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="font-display mt-8 max-w-[700px] text-[clamp(4rem,7vw,7rem)] font-semibold leading-[0.91] tracking-[-0.055em]"
+              className="font-display mt-8 max-w-[700px] text-[3.5rem] font-semibold leading-[0.92] tracking-[-0.055em] sm:text-[4.5rem] lg:text-[clamp(4rem,7vw,7rem)]"
             >
               Building
               <br />
@@ -110,33 +214,61 @@ function Hero() {
               </span>
             </motion.h1>
 
+            {/* Description */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
               transition={{
                 duration: 0.7,
                 delay: 0.25,
               }}
               className="mt-8 max-w-[650px] text-base leading-7 text-slate-400 sm:text-lg"
             >
-              I'm Shradha Rai, a Computer Science graduate working across
-              software engineering, data analytics and applied AI. I like
-              turning messy problems and raw data into systems people can
-              actually use.
+              I'm Shradha Rai, a Computer Science graduate
+              working across software engineering, data analytics
+              and applied AI. I like turning messy problems and
+              raw data into systems people can actually use.
             </motion.p>
 
-            {/* ACTIONS */}
+            {/* =================================
+                ACTION
+            ================================= */}
+
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{
+                opacity: 0,
+                y: 15,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
               transition={{
                 duration: 0.7,
                 delay: 0.4,
               }}
               className="mt-9 flex flex-wrap gap-3"
             >
-              <a
+              <motion.a
                 href="#projects"
+                onMouseMove={handleButtonMove}
+                onMouseLeave={resetButton}
+                style={{
+                  x: springButtonX,
+                  y: springButtonY,
+                }}
+                whileHover={{
+                  scale: 1.02,
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
                 className="magnetic-button group flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-sm font-semibold !text-slate-950 hover:bg-violet-100"
               >
                 Explore my work
@@ -144,22 +276,20 @@ function Hero() {
                 <FiArrowUpRight
                   className="!text-slate-950 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
                 />
-              </a>
-
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noreferrer"
-                className="magnetic-button flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold !text-white hover:bg-white/[0.08]"
-              >
-                View resume
-              </a>
+              </motion.a>
             </motion.div>
 
-            {/* SOCIALS */}
+            {/* =================================
+                SOCIALS
+            ================================= */}
+
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
               transition={{
                 delay: 0.7,
               }}
@@ -170,7 +300,7 @@ function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
-                className="text-slate-500 transition hover:text-white"
+                className="text-slate-500 transition hover:text-white hover:-translate-y-0.5"
               >
                 <FiGithub size={19} />
               </a>
@@ -180,7 +310,7 @@ function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
-                className="text-slate-500 transition hover:text-white"
+                className="text-slate-500 transition hover:text-white hover:-translate-y-0.5"
               >
                 <FiLinkedin size={19} />
               </a>
@@ -193,7 +323,10 @@ function Hero() {
             </motion.div>
           </div>
 
-          {/* RIGHT */}
+          {/* =================================
+              RIGHT
+          ================================= */}
+
           <motion.div
             initial={{
               opacity: 0,
@@ -212,91 +345,118 @@ function Hero() {
             }}
             className="relative mx-auto w-full max-w-[460px] lg:ml-auto"
           >
+            {/* Mouse-responsive layer */}
             <motion.div
               style={{
-                x: springX,
-                y: springY,
-              }}
-              animate={{
-                y: [0, -8, 0],
+                x: cardX,
+                y: cardY,
+                rotateX,
+                rotateY,
               }}
               transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
+                type: "spring",
+                stiffness: 80,
+                damping: 20,
               }}
-              className="relative"
+              className="relative [transform-style:preserve-3d]"
             >
-              <div className="absolute -inset-8 rounded-full bg-violet-600/10 blur-3xl" />
+              {/* Ambient floating animation */}
+              <motion.div
+                animate={{
+                  y: [0, -8, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="relative"
+              >
+                {/* Glow */}
+                <div className="absolute -inset-8 rounded-full bg-violet-600/10 blur-3xl" />
 
-              <div className="relative rounded-[34px] border border-white/10 bg-white/[0.035] p-3 shadow-2xl shadow-black/40">
-                <div className="relative overflow-hidden rounded-[27px] bg-slate-900">
+                {/* =================================
+                    IMAGE CARD
+                ================================= */}
 
-                  <img
-                    src="/portfolio.jpeg"
-                    alt="Shradha Rai"
-                    className="aspect-[4/5] w-full object-cover object-top"
-                  />
+                <div className="relative rounded-[34px] border border-white/10 bg-white/[0.035] p-3 shadow-2xl shadow-black/40">
+                  <div className="relative overflow-hidden rounded-[27px] bg-slate-900">
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050816]/85 via-transparent to-transparent" />
+                    <img
+                      src="/portfolio.jpeg"
+                      alt="Shradha Rai"
+                      className="aspect-[4/5] w-full object-cover object-top"
+                    />
 
-                  <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
-                    <div>
-                      <p className="font-display text-xl font-semibold">
-                        Shradha Rai
-                      </p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050816]/85 via-transparent to-transparent" />
 
-                      <p className="mt-1 text-xs text-slate-300">
-                        Engineer • Analyst • Builder
-                      </p>
-                    </div>
+                    <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                      <div>
+                        <p className="font-display text-xl font-semibold">
+                          Shradha Rai
+                        </p>
 
-                    <div className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
-                      Available
+                        <p className="mt-1 text-xs text-slate-300">
+                          Engineer • Analyst • Builder
+                        </p>
+                      </div>
+
+                      <div className="shrink-0 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
+                        Available
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Focus */}
-              <motion.div
-                style={{
-                  x: springX,
-                  y: springY,
-                }}
-                className="glass absolute -left-8 bottom-16 hidden rounded-2xl px-4 py-3 sm:block"
-              >
-                <p className="text-[10px] uppercase tracking-widest text-slate-500">
-                  Focus
-                </p>
+                {/* =================================
+                    FOCUS CARD
+                ================================= */}
 
-                <p className="mt-1 font-display text-sm font-semibold">
-                  AI + Data
-                </p>
-              </motion.div>
+                <motion.div
+                  style={{
+                    x: focusX,
+                    y: focusY,
+                  }}
+                  className="glass pointer-events-none absolute -left-8 top-[58%] hidden rounded-2xl px-4 py-3 sm:block"
+                >
+                  <p className="text-[10px] uppercase tracking-widest text-slate-500">
+                    Focus
+                  </p>
 
-              {/* CGPA */}
-              <motion.div
-                style={{
-                  x: springX,
-                  y: springY,
-                }}
-                className="glass absolute -right-7 top-14 rounded-2xl px-4 py-3"
-              >
-                <p className="text-[10px] uppercase tracking-widest text-slate-500">
-                  CGPA
-                </p>
+                  <p className="mt-1 font-display text-sm font-semibold">
+                    AI + Data
+                  </p>
+                </motion.div>
 
-                <p className="mt-1 font-display text-sm font-semibold">
-                  9.12
-                </p>
+                {/* =================================
+                    CGPA CARD
+                ================================= */}
+
+                <motion.div
+                  style={{
+                    x: cgpaX,
+                    y: cgpaY,
+                  }}
+                  className="glass absolute -right-7 top-14 rounded-2xl px-4 py-3"
+                >
+                  <p className="text-[10px] uppercase tracking-widest text-slate-500">
+                    CGPA
+                  </p>
+
+                  <p className="mt-1 font-display text-sm font-semibold">
+                    9.1
+                  </p>
+                </motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* =================================
+          SCROLL INDICATOR
+      ================================= */}
+
       <motion.button
         onClick={scrollToAbout}
         animate={{
